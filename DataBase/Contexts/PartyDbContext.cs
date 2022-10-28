@@ -1,4 +1,5 @@
-﻿using System.Net.Mime;
+﻿using System;
+using System.Net.Mime;
 using System.Reflection;
 using DataBase.Repositories.Gatherings;
 using DataBase.Repositories.Invitations;
@@ -56,16 +57,19 @@ namespace DataBase.Contexts
         }
     }
 
+    #pragma warning disable SA1402 // File may only contain a single type
     public class PartyDbContextFactory : IDesignTimeDbContextFactory<PartyDbContext>
     {
         public PartyDbContext CreateDbContext(string[] args)
         {
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath()
-                .AddJsonFile("appsettings.json")
+            IConfiguration configuration = new ConfigurationBuilder()
+                .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../WebUI"))
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.Development.json", optional: true, reloadOnChange: true)
                 .Build();
+
             var optionBuilder = new DbContextOptionsBuilder<PartyDbContext>();
-            optionBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
+            optionBuilder.UseSqlServer(configuration["ConnectionString:DefaultConnection"]);
             return new PartyDbContext(optionBuilder.Options);
         }
     }
