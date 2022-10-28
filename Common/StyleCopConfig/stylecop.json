@@ -1,0 +1,51 @@
+{
+  // ACTION REQUIRED: This file was automatically added to your project, but it
+  // will not take effect until additional steps are taken to enable it. See the
+  // following page for additional information:
+  //
+  // https://github.com/DotNetAnalyzers/StyleCopAnalyzers/blob/master/documentation/EnableConfiguration.md
+  "$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json",
+  "settings": {
+    "indentation": {
+      "indentationSize": 4,
+      "tabSize": 4,
+      "useTabs": false
+    },
+    "documentationRules": {
+      "companyName": "PlaceholderCompany",
+      "copyrightText": "",
+      "headerDecoration": "",
+      "documentationCulture": "en-US",
+      "documentExposedElements": true,
+      "documentInterfaces": true,
+      "documentInternalElements": true,
+      "documentPrivateElements": false,
+      "documentPrivateFields": false,
+      "fileNamingConvention": "stylecop",
+      "excludeFromPunctuationCheck": [ "seealso" ],
+      "xmlHeader": false
+    },
+    "orderingRules": {
+      "elementOrder": [ "constant", "readonly", "accessibility", "static" ],
+      "usingDirectivesPlacement": "outsideNamespace",
+      "blankLinesBetweenUsingGroups": "allow",
+      "systemUsingDirectivesFirst": true
+    },
+    "namingRules": {
+      "allowCommonHungarianPrefixes": true,
+      "includeInferredTupleElementNames": false,
+      "tupleElementNameCasing": "PascalCase"
+    },
+    "layoutRules": {
+      "allowConsecutiveUsings": true,
+      "allowDoWhileOnClosingBrace": false,
+      "newlineAtEndOfFile": "allow"
+    },
+    "maintainabilityRules": {
+      "topLevelTypes": [ "class" ]
+    },
+    "readabilityRules": {
+      "allowBuiltInTypeAliases": false
+    }
+  }
+}
