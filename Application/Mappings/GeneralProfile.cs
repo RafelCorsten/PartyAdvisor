@@ -13,7 +13,8 @@ namespace Application.Mappings
     {
         public GeneralProfile()
         {
-            this.CreateMap<Gathering, GetGatheringByIdItemResponse>();
+            this.CreateMap<Gathering, GetGatheringByIdResponse>();
+            this.CreateMap<Gathering, IEnumerable<GetGatheringByIdResponse>>();
             this.CreateMap<Member, MembersItemResponse>();
         }
     }
