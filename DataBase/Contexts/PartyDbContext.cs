@@ -1,13 +1,11 @@
-﻿using System;
-using System.Net.Mime;
-using System.Reflection;
-using DataBase.Repositories.Gatherings;
+﻿using DataBase.Repositories.Gatherings;
 using DataBase.Repositories.Invitations;
 using DataBase.Repositories.Members;
 using Domain.Common;
 using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.Configuration;
 
 namespace DataBase.Contexts
@@ -30,6 +28,16 @@ namespace DataBase.Contexts
             builder.ApplyConfiguration(new MemberConfiguration());
             builder.ApplyConfiguration(new GatheringConfiguration());
             builder.ApplyConfiguration(new InvitationConfiguration());
+
+            DeleteAllBehavior(builder);
+        }
+
+        private void DeleteAllBehavior(ModelBuilder modelBuilder)
+        {
+            foreach (IMutableForeignKey relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
         }
 
         public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess,
@@ -57,7 +65,7 @@ namespace DataBase.Contexts
         }
     }
 
-    #pragma warning disable SA1402 // File may only contain a single type
+#pragma warning disable SA1402 // File may only contain a single type
     public class PartyDbContextFactory : IDesignTimeDbContextFactory<PartyDbContext>
     {
         public PartyDbContext CreateDbContext(string[] args)

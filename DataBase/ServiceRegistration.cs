@@ -1,4 +1,6 @@
 ﻿using DataBase.Contexts;
+using DataBase.Repositories;
+using Domain.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,8 +13,11 @@ namespace DataBase
         {
             services.AddDbContext<PartyDbContext>(options =>
             {
-                options.UseSqlServer(configuration["ConnectionString..DefaultConnection"]);
+                options.UseSqlServer(configuration["ConnectionString:DefaultConnection"]);
             }, ServiceLifetime.Scoped);
+
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }
 }

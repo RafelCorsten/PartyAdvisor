@@ -1,4 +1,6 @@
+using Domain.Common;
 using Microsoft.AspNetCore.Mvc;
+using Domain.Entities;
 
 namespace WebUI.Controllers
 {
@@ -13,6 +15,8 @@ namespace WebUI.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
 
+        private readonly IRepository<Member> _memberRepository;
+
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
@@ -21,7 +25,8 @@ namespace WebUI.Controllers
         [HttpGet(Name = "GetWeatherForecast")]
         public IEnumerable<WeatherForecast> Get()
         {
-            _logger.Log('hello');
+            _memberRepository.AddAsync(new Member());
+
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),
